@@ -1,14 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"net/http"
 )
 
 func main() {
-	fmt.Println("Sleeping!")
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
 
-	time.Sleep(10 * time.Second)
-
-	fmt.Println("Hello, World!")
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello World!"))
+	})
+	http.ListenAndServe(":8000", r)
 }
