@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: go run main.go
     ports:
       - "8000:8000"
     volumes:
