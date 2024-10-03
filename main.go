@@ -1,14 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	"github.com/lukkas-lukkas/golang-todo-list-api/routes"
 )
 
 func main() {
-	fmt.Println("Sleeping!")
-
-	time.Sleep(10 * time.Second)
-
-	fmt.Println("Hello, World!")
+	routes.ExecuteApi()
 }
