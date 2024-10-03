@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/lukkas-lukkas/golang-todo-list-api/config"
+	"github.com/lukkas-lukkas/golang-todo-list-api/bin"
 	"github.com/lukkas-lukkas/golang-todo-list-api/routes"
 	"os"
 )
 
 func main() {
-	config.NewAppProvider().Boot()
+	bin.Boot()
 
 	fmt.Println("APP_ENV", os.Getenv("APP_ENV"))
 

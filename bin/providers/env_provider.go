@@ -1,4 +1,4 @@
-package providers
+package bin
 
 import "github.com/joho/godotenv"
 
