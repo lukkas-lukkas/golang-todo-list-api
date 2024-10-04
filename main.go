@@ -8,7 +8,6 @@ import (
 	"github.com/lukkas-lukkas/golang-todo-list-api/routes"
 	"log"
 	"os"
-	"time"
 )
 
 func main() {
@@ -22,26 +21,14 @@ func main() {
 
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", user, pass, host, port, name)
 
-	fmt.Println(dns)
-
-	var db *sql.DB
-	var err error
-
-	// Retry connecting to the database
-	for i := 0; i < 100; i++ {
-		db, err = sql.Open("mysql", dns)
-		if err == nil {
-			err = db.Ping()
-			if err == nil {
-				break
-			}
-		}
-		fmt.Println(i, "DB PING ERROR, retrying...")
-		time.Sleep(10 * time.Second)
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		log.Fatalln("Error to open database connection", err)
 	}
 
+	err = db.Ping()
 	if err != nil {
-		log.Fatalln("DB CONNECTION ERROR", err)
+		log.Fatalln("Error pinging database", err)
 	}
 
 	defer func(db *sql.DB) {
