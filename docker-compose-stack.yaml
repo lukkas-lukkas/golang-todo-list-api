@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  db:
+    container_name: golang-todo-list.db
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      # TODO: Use .env values here
+      MYSQL_DATABASE: todo_list
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+
+networks:
+  default:
+    name: golang-todo-list-network
+    external: true
