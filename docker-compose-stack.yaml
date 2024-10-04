@@ -6,10 +6,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
-      # TODO: Use .env values here
-      MYSQL_DATABASE: todo_list
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
 
 networks:
   default:
