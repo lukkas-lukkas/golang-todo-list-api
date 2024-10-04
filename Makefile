@@ -3,9 +3,13 @@ build:
 	docker-compose build
 
 up:
-	make down
-	docker-compose up -d
-	docker logs -f golang-todo-list.api
+	docker-compose up --force-recreate
 
 down:
 	docker-compose down --remove-orphans
+
+stack-up:
+	docker-compose -f docker-compose-stack.yaml up -d --force-recreate
+
+stack-down:
+	docker-compose -f docker-compose-stack.yaml down

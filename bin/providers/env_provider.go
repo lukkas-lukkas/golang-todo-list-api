@@ -1,6 +1,9 @@
 package bin
 
-import "github.com/joho/godotenv"
+import (
+	"github.com/joho/godotenv"
+	"log"
+)
 
 type EnvProvider struct{}
 
@@ -11,6 +14,6 @@ func NewEnvProvider() *EnvProvider {
 func (p EnvProvider) Boot() {
 	err := godotenv.Load()
 	if err != nil {
-		panic("Error loading .env file")
+		log.Fatalln("Error loading .env file", err)
 	}
 }

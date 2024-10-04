@@ -11,11 +11,8 @@ services:
       - "8000:8000"
     volumes:
       - .:/usr/src/app
-  db:
-    image: mysql:9.0.1
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: todo_list
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+
+networks:
+  default:
+    name: golang-todo-list-network
+    external: true
