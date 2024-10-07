@@ -1,18 +1,17 @@
-package main
+package db
 
 import (
+	_ "github.com/go-sql-driver/mysql"
+
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/lukkas-lukkas/golang-todo-list-api/bin"
-	"github.com/lukkas-lukkas/golang-todo-list-api/routes"
 	"log"
 	"os"
 )
 
-func main() {
-	bin.Boot()
+var DB *sql.DB
 
+func InitDB() {
 	user := os.Getenv("DB_USER")
 	pass := os.Getenv("DB_PASS")
 	host := os.Getenv("DB_HOST")
@@ -31,14 +30,12 @@ func main() {
 		log.Fatalln("Error pinging database", err)
 	}
 
-	defer func(db *sql.DB) {
-		err := db.Close()
-		if err != nil {
-			log.Fatalln("DB CLOSE ERROR", err)
-		}
-	}(db)
+	DB = db
+}
 
-	fmt.Println("Database connection successful")
-
-	routes.ExecuteApi()
+func CloseDB() {
+	err := DB.Close()
+	if err != nil {
+		log.Fatalln("DB CLOSE ERROR", err)
+	}
 }
