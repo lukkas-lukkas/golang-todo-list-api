@@ -11,6 +11,7 @@ func CreateRouter() chi.Router {
 	r.Use(middleware.Logger)
 
 	r.Get("/", controllers.HelloWorldController)
+	r.Post("/register", controllers.RegisterController)
 
 	return r
 }
