@@ -12,10 +12,8 @@ func main() {
 	config.Load()
 	defer db.CloseDB()
 
-	os.Getenv("SERVER_PORT")
-
 	log.Fatal(http.ListenAndServe(
 		":"+os.Getenv("API_SERVER_PORT"),
-		CreateRouter(),
+		config.CreateRouter(),
 	))
 }
