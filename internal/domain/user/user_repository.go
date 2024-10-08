@@ -1,5 +1,5 @@
 package user
 
 type Repository interface {
-	Create(user User)
+	Create(user User) (User, error)
 }
