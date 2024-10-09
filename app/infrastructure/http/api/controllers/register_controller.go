@@ -2,11 +2,12 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/lukkas-lukkas/golang-todo-list-api/internal/adapters/db"
-	encrypt2 "github.com/lukkas-lukkas/golang-todo-list-api/internal/adapters/encrypt"
-	"github.com/lukkas-lukkas/golang-todo-list-api/internal/adapters/http/requests"
-	"github.com/lukkas-lukkas/golang-todo-list-api/internal/adapters/http/responses"
-	"github.com/lukkas-lukkas/golang-todo-list-api/internal/usecases/register_user"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/application/register_user"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/infrastructure/helpers"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/infrastructure/http/api/requests"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/infrastructure/http/api/requests/validators"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/infrastructure/http/api/responses"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/infrastructure/persistence/mysql"
 	"log"
 	"net/http"
 )
@@ -17,12 +18,12 @@ func RegisterController(w http.ResponseWriter, r *http.Request) {
 
 	json.NewDecoder(r.Body).Decode(&request)
 
-	if validated := requests.Validated(request, w); !validated {
+	if validated := validators.Validated(request, w); !validated {
 		return
 	}
 
-	repo := db.NewUserRepository(db.DB)
-	encrypt := encrypt2.NewBcryptService()
+	repo := mysql.NewUserRepository(mysql.Connection)
+	encrypt := helpers.NewBcryptEncryptor()
 	useCase := register_user.NewRegisterUserService(repo, encrypt)
 
 	user, err := useCase.CreateUser(register_user.UserDto{

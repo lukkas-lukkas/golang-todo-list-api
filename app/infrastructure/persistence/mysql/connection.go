@@ -1,4 +1,4 @@
-package db
+package mysql
 
 import (
 	_ "github.com/go-sql-driver/mysql"
@@ -9,9 +9,9 @@ import (
 	"os"
 )
 
-var DB *sql.DB
+var Connection *sql.DB
 
-func InitDB() {
+func InitConnection() {
 	user := os.Getenv("DB_USER")
 	pass := os.Getenv("DB_PASS")
 	host := os.Getenv("DB_HOST")
@@ -30,11 +30,11 @@ func InitDB() {
 		log.Fatalln("Error pinging database", err)
 	}
 
-	DB = db
+	Connection = db
 }
 
-func CloseDB() {
-	err := DB.Close()
+func CloseConnection() {
+	err := Connection.Close()
 	if err != nil {
 		log.Fatalln("DB CLOSE ERROR", err)
 	}

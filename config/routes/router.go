@@ -1,9 +1,9 @@
-package config
+package routes
 
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/lukkas-lukkas/golang-todo-list-api/internal/adapters/http/controllers"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/infrastructure/http/api/controllers"
 )
 
 func CreateRouter() chi.Router {

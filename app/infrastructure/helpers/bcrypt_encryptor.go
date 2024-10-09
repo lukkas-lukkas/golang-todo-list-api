@@ -1,14 +1,14 @@
-package encrypt
+package helpers
 
 import "golang.org/x/crypto/bcrypt"
 
-type BcryptService struct{}
+type BcryptEncryptor struct{}
 
-func NewBcryptService() *BcryptService {
-	return &BcryptService{}
+func NewBcryptEncryptor() *BcryptEncryptor {
+	return &BcryptEncryptor{}
 }
 
-func (s BcryptService) Encrypt(value string) (string, error) {
+func (e BcryptEncryptor) Encrypt(value string) (string, error) {
 	hashed, err := bcrypt.GenerateFromPassword([]byte(value), bcrypt.DefaultCost)
 	if err != nil {
 		return "", err
@@ -17,7 +17,7 @@ func (s BcryptService) Encrypt(value string) (string, error) {
 
 }
 
-func (s BcryptService) Check(encrypted string, string string) bool {
+func (e BcryptEncryptor) Check(encrypted string, string string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(encrypted), []byte(string))
 	return err == nil
 }

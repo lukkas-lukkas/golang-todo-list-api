@@ -1,4 +1,4 @@
-package requests
+package validators
 
 import (
 	"encoding/json"
