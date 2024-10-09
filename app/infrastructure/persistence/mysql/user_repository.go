@@ -1,20 +1,20 @@
-package db
+package mysql
 
 import (
 	"database/sql"
-	"github.com/lukkas-lukkas/golang-todo-list-api/internal/domain/user"
+	"github.com/lukkas-lukkas/golang-todo-list-api/app/domain/user"
 )
 
 type UserRepository struct {
-	db *sql.DB
+	connection *sql.DB
 }
 
-func NewUserRepository(db *sql.DB) *UserRepository {
-	return &UserRepository{db}
+func NewUserRepository(connection *sql.DB) *UserRepository {
+	return &UserRepository{connection}
 }
 
 func (r *UserRepository) Create(u user.User) (user.User, error) {
-	stmt, err := r.db.Prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)")
+	stmt, err := r.connection.Prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)")
 	if err != nil {
 		return user.User{}, err
 	}
